@@ -1,17 +1,27 @@
 <script setup lang="ts">
+import { getIpLocation as fetchIpLocation } from '@/services/ip';
+import { ref } from 'vue';
 import ArrowIcon from '../src/components/icons/IconArrow.vue';
+
+const address = ref('');
+
+const getIpLocation = async (event: MouseEvent) => {
+  event.preventDefault();
+  await fetchIpLocation(address.value);
+  
+};
 </script>
 
 <template>
   <header>
     <h1>IP Address Tracker</h1>
 
-    <div class="input-container">
-      <input type="text" name="address" id="address" />
-      <button class="arrow">
+    <section class="input-container">
+      <input type="text" name="address" id="address" class="address" />
+      <button class="arrow" @click="getIpLocation">
         <ArrowIcon />
       </button>
-    </div>
+    </section>
 
   </header>
 
@@ -19,7 +29,7 @@ import ArrowIcon from '../src/components/icons/IconArrow.vue';
 
 <style scoped>
 header {
-  background-image: url('/public/pattern-bg-mobile.png');
+  background-image: url('/pattern-bg-mobile.png');
   height: 18rem;
 }
 
@@ -32,25 +42,29 @@ header h1 {
 
 .input-container {
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
-input {
-  display: block;
-  position: absolute;
-  height: 3.5rem;
-  border-radius: 0.5rem;
+.address {
   width: 20rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  position: relative;
   font-size: larger;
   padding-left: 2rem;
-  padding-right: 2rem;
+  padding-right: 4rem;
 }
 
 .arrow {
+  width: 3rem;
   background-color: black;
   border: none;
-  height: 3.5rem;
-  width: 2rem;
-  position: relative;
-  left: 17.94rem;
+  position: absolute;
+  margin-left: 17rem;
+  height: 3rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  cursor: pointer;
 }
 </style>
