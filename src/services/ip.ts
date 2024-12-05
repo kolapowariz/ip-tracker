@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = 'at_3pntRvFbB8ecWXOviPS6YU7ra38ne';
+const API_KEY = import.meta.env.VITE_IPIFY_API_KEY;
 const BASE_URL = 'https://geo.ipify.org/api/v2/country,city';
 
 export async function getIpLocation (ipAddress: string) {

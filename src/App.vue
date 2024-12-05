@@ -9,7 +9,7 @@ onMounted(async () => {
   const data = await getIpLocation();
   if (data) {
     location.value = data;
-    console.log(location.value);
+    // console.log(location.value);
   } else {
     console.error('Failed to fetch IP location');
   }
@@ -22,7 +22,7 @@ onMounted(async () => {
 
     <section class="input-container" v-if="location">
       <input type="text" name="address" id="address" class="address" :value="location.ip" />
-      <button class="arrow" @click="getIpLocation">
+      <button class="arrow">
         <ArrowIcon />
       </button>
     </section>
