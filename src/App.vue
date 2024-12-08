@@ -1,64 +1,11 @@
 <script setup lang="ts">
-import { getIpLocation } from '@/services/ip';
-import { ref, onMounted } from 'vue';
-import ArrowIcon from '../src/components/icons/IconArrow.vue';
-
-const location = ref(null);
-
-onMounted(async () => {
-  const data = await getIpLocation();
-  if (data) {
-    location.value = data;
-    // console.log(location.value);
-  } else {
-    console.error('Failed to fetch IP location');
-  }
-});
+import MapView from '../src/components/MapView.vue';
+import HeaderView from '../src/components/HeaderView.vue';
 </script>
 
 <template>
-  <header>
-    <h1>IP Address Tracker</h1>
-
-    <section class="input-container" v-if="location">
-      <input type="text" name="address" id="address" class="address" :value="location.ip" />
-      <button class="arrow">
-        <ArrowIcon />
-      </button>
-    </section>
-    <div class="details" v-if="location">
-      <section>
-        <p class="gray">IP ADDRESS</p>
-        <p class="black">{{ location.ip }}</p>
-      </section>
-      <section>
-        <p class="gray">LOCATION</p>
-        <p class="black">{{ location.location.city }}</p>
-        <p class="black">{{ location.location.region }}</p>
-        <p class="black">{{ location.location.country }}</p>
-      </section>
-      <section>
-        <p class="gray">TIMEZONE</p>
-        <p class="black">{{ location.location.timezone }}</p>
-      </section>
-      <section>
-        <p class="gray">ISP</p>
-        <p class="black">{{ location.isp }}</p>
-      </section>
-      <section>
-        <p class="gray">LAT</p>
-        <p class="black">{{ location.location.lat }}</p>
-      </section>
-      <section>
-        <p class="gray">LNG</p>
-        <p class="black">{{ location.location.lng }}</p>
-      </section>
-    </div>
-    <div v-else>
-      <p class="loading">Loading your location...</p>
-    </div>
-
-  </header>
+  <HeaderView />
+  <MapView />
 
 </template>
 
