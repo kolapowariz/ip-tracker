@@ -1,22 +1,33 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { onMounted, ref } from 'vue';
+import type { Location } from './HeaderView.vue';
+import { getIpLocation } from '@/services/ip';
 
+const location = ref<Location | null>(null);
+const data = await getIpLocation();
+if (data) {
+  location.value = data;
+  // console.log(location.value);
+} else {
+  console.error('Failed to fetch IP location');
+}
 
-const mapRef = ref(null);
+console.log(location.value);
+const mapRef = ref(null as unknown as string | HTMLElement);
 
 onMounted(() => {
-  const map = L.map(mapRef.value).setView([6.52563, 3.37761], 13);
+  const map = L.map(mapRef.value).setView([location.value?.location.lat ?? 0, location.value?.location.lng ?? 0], 17);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
   // Add a marker
-  L.marker([6.52563, 3.37761])
+  L.marker([location.value?.location.lat ?? 0, location.value?.location.lng ?? 0])
     .addTo(map)
-    .bindPopup('A pretty marker.')
+    .bindPopup(location.value?.location.city ?? '')
     .openPopup();
 });
 
