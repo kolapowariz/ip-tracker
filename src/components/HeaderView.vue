@@ -3,7 +3,20 @@ import { getIpLocation } from '@/services/ip';
 import { ref, onMounted } from 'vue';
 import ArrowIcon from './icons/IconArrow.vue';
 
-const location = ref(null);
+export interface Location {
+  ip: string;
+  location: {
+    city: string;
+    region: string;
+    country: string;
+    timezone: string;
+    lat: number;
+    lng: number;
+  };
+  isp: string;
+}
+
+const location = ref<Location | null>(null);
 
 onMounted(async () => {
   const data = await getIpLocation();
