@@ -1,20 +1,8 @@
 <script setup lang="ts">
 import { getIpLocation } from '@/services/ip';
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
+import type { Location } from '../types';
 import ArrowIcon from './icons/IconArrow.vue';
-
-export interface Location {
-  ip: string;
-  location: {
-    city: string;
-    region: string;
-    country: string;
-    timezone: string;
-    lat: number;
-    lng: number;
-  };
-  isp: string;
-}
 
 const location = ref<Location | null>(null);
 
@@ -22,7 +10,6 @@ onMounted(async () => {
   const data = await getIpLocation();
   if (data) {
     location.value = data;
-    // console.log(location.value);
   } else {
     console.error('Failed to fetch IP location');
   }
@@ -157,5 +144,28 @@ header h1 {
   color: black;
   font-size: 1rem;
   font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  header {
+    background-image: url('/pattern-bg-desktop.png');
+    height: 15rem;
+  }
+
+  .details {
+    width: 80%;
+    height: 10rem;
+    background-color: white;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    gap: 1rem;
+    padding: 1rem 1rem;
+  }
+
 }
 </style>
