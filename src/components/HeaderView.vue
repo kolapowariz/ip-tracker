@@ -154,7 +154,7 @@ header h1 {
 
   .details {
     width: 80%;
-    height: 10rem;
+    height: 8rem;
     background-color: white;
     margin: 2rem auto;
     border-radius: 0.5rem;
@@ -165,6 +165,10 @@ header h1 {
     align-items: start;
     gap: 1rem;
     padding: 1rem 1rem;
+  }
+
+  .details section {
+    border-right: 0.5px solid gray;
   }
 
 }
